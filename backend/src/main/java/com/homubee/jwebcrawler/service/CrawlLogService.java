@@ -21,16 +21,18 @@ public class CrawlLogService {
     CrawlLogRepository crawlLogRepository;
 
     public CrawlLogResponseDTO saveCrawlLog(CrawlLog crawlLog) {
-        CrawlLogResponseDTO responseDTO = modelMapper.map(crawlLog, CrawlLogResponseDTO.class);
+        String crawledResult = "";
         Document document;
         try {
             document = Jsoup.connect(crawlLog.getUrl()).get();
-            responseDTO.setResult(document.title() + " : " + document.text());
+            crawledResult = document.title() + " : " + document.text();
             crawlLogRepository.save(crawlLog);
         } catch (Exception e) {
-            responseDTO.setResult("Crawling Failed");
+            crawledResult = "Crawling Failed";
             //e.printStackTrace();
         }
+        CrawlLogResponseDTO responseDTO = modelMapper.map(crawlLog, CrawlLogResponseDTO.class);
+        responseDTO.setResult(crawledResult);
         return responseDTO;
     }
 
