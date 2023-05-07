@@ -11,11 +11,22 @@ pipeline {
                 git url: "${GIT_URL}", branch: "main"
             }
         }
-
-        stage('Build and Deploy') {
+        
+        stage('Clean') {
             steps {
-                sh 'sudo docker compose stop'
-                sh 'sudo docker compose up -d --build'
+                sh '(docker stop jwebcralwer && docker rm jwebcralwer) || true'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'docker build -t jwebcralwer ./backend'
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                sh 'docker run -it -d -p 8090:8090 --name jwebcralwer jwebcralwer'
             }
         }
     }
