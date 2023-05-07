@@ -1,0 +1,20 @@
+pipeline {
+    environment {
+        GIT_URL = "https://github.com/homubee/Jwebcrawler.git"
+    }
+
+    stages {
+        stage('Pull') {
+            steps {
+                git url: "${GIT_URL}", branch: "main"
+            }
+        }
+
+        stage('Build and Deploy') {
+            steps {
+                sh 'docker compose stop'
+                sh 'docker compose up -d --build'
+            }
+        }
+    }
+}
