@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     environment {
         GIT_URL = "https://github.com/homubee/Jwebcrawler.git"
     }
@@ -14,8 +14,8 @@ pipeline {
 
         stage('Build and Deploy') {
             steps {
-                sh 'docker compose stop'
-                sh 'docker compose up -d --build'
+                sh 'sudo docker compose stop'
+                sh 'sudo docker compose up -d --build'
             }
         }
     }
