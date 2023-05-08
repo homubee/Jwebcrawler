@@ -2,6 +2,7 @@ package com.homubee.jwebcrawler.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -32,5 +33,10 @@ public class Post extends BaseEntity {
 
     private String content;
 
+    @ColumnDefault("0")
     private int viewCnt;
+
+    public void increaseViewCnt() {
+        this.viewCnt++;
+    }
 }
