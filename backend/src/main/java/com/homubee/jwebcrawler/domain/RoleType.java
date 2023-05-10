@@ -1,5 +1,5 @@
 package com.homubee.jwebcrawler.domain;
 
 public enum RoleType {
-    USER, ADMIN
+    ROLE_USER, ROLE_ADMIN
 }

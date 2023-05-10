@@ -1,8 +1,10 @@
 package com.homubee.jwebcrawler.service;
 
+import com.homubee.jwebcrawler.domain.Member;
 import com.homubee.jwebcrawler.domain.Post;
 import com.homubee.jwebcrawler.dto.request.PostRequestDTO;
 import com.homubee.jwebcrawler.dto.response.PostResponseDTO;
+import com.homubee.jwebcrawler.repository.MemberRepository;
 import com.homubee.jwebcrawler.repository.PostRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -20,11 +22,23 @@ public class PostService {
     ModelMapper modelMapper;
     @Autowired
     PostRepository postRepository;
+    @Autowired
+    MemberRepository memberRepository;
 
     public void savePost(PostRequestDTO requestDTO) {
-        // Save
-        Post post = modelMapper.map(requestDTO, Post.class);
-        postRepository.save(post);
+
+        Long memberId = requestDTO.getMemberId();
+        Optional<Member> optionalMember = memberRepository.findById(requestDTO.getMemberId());
+        if (optionalMember.isPresent()) {
+            Member member = memberRepository.findById(memberId).get();
+            // Save
+            Post post = Post.builder()
+                    .member(member)
+                    .title(requestDTO.getTitle())
+                    .content(requestDTO.getContent())
+                    .build();
+            postRepository.save(post);
+        }
     }
 
     public void updatePost(Long postId, PostRequestDTO requestDTO) {

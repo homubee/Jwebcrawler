@@ -1,5 +1,6 @@
 package com.homubee.jwebcrawler.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ import javax.persistence.*;
         initialValue = 1, allocationSize = 1)
 @Getter
 @Setter
+@Builder
 public class Comment extends BaseEntity {
     @Id
     @GeneratedValue(generator = "COMMENT_SEQ_GENERATOR")

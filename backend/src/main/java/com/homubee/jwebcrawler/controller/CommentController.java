@@ -13,8 +13,8 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-    @PostMapping("/{postId}")
-    public void saveComment(@PathVariable("postId") Long postId, @RequestBody CommentRequestDTO requestDTO) {
-        commentService.saveComment(postId, requestDTO);
+    @PostMapping("")
+    public void saveComment(@RequestBody CommentRequestDTO requestDTO) {
+        commentService.saveComment(requestDTO);
     }
 }
