@@ -51,11 +51,20 @@ public class PostService {
             return;
         }
 
-        // Save
-        Post post = modelMapper.map(requestDTO, Post.class);
-        post.setId(postId);
-        post.setViewCnt(viewCnt);
-        postRepository.save(post);
+        Long memberId = requestDTO.getMemberId();
+        Optional<Member> optionalMember = memberRepository.findById(requestDTO.getMemberId());
+        if (optionalMember.isPresent()) {
+            Member member = memberRepository.findById(memberId).get();
+            // Save
+            Post post = Post.builder()
+                    .id(postId)
+                    .member(member)
+                    .title(requestDTO.getTitle())
+                    .content(requestDTO.getContent())
+                    .viewCnt(viewCnt)
+                    .build();
+            postRepository.save(post);
+        }
     }
 
     public PostResponseDTO findById(Long postId) {

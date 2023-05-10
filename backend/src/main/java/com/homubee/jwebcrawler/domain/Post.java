@@ -1,8 +1,6 @@
 package com.homubee.jwebcrawler.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
@@ -18,6 +16,8 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Post extends BaseEntity {
     @Id
     @GeneratedValue(generator = "POST_SEQ_GENERATOR")
