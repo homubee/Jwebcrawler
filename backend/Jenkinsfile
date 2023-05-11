@@ -22,10 +22,10 @@ pipeline {
             steps {
                 sh 'docker build -t jwebcrawler ./backend'
             }
-        }
-        post {
-            always {
-                sh 'docker image prune -f'
+            post {
+                always {
+                    sh 'docker image prune -f'
+                }
             }
         }
         
