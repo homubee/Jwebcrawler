@@ -7,9 +7,10 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class CrawlLogResponseDTO {
+public class CrawlResultResponseDTO {
     private Long id;
     private String url;
+    private String result;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
