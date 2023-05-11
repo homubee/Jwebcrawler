@@ -14,19 +14,24 @@ pipeline {
         
         stage('Clean') {
             steps {
-                sh '(docker stop jwebcralwer && docker rm jwebcralwer) || true'
+                sh '(docker stop jwebcrawler && docker rm jwebcrawler) || true'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'docker build -t jwebcralwer ./backend'
+                sh 'docker build -t jwebcrawler ./backend'
+            }
+        }
+        post {
+            always {
+                sh 'docker image prune -f'
             }
         }
         
         stage('Deploy') {
             steps {
-                sh 'docker run -it -d -p 8090:8090 --name jwebcralwer jwebcralwer'
+                sh 'docker run -it -d -p 8090:8090 --name jwebcrawler jwebcrawler'
             }
         }
     }
