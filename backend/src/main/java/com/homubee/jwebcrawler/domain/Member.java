@@ -1,5 +1,6 @@
 package com.homubee.jwebcrawler.domain;
 
+import com.homubee.jwebcrawler.domain.crawlLog.CrawlLog;
 import lombok.Getter;
 import lombok.Setter;
 

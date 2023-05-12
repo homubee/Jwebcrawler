@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
 public class CrawlResultResponseDTO {
     private Long id;
     private String url;
-    private String result;
+    private String resultTitle;
+    private String resultBody;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

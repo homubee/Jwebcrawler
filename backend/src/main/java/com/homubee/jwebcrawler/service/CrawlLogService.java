@@ -1,8 +1,9 @@
 package com.homubee.jwebcrawler.service;
 
-import com.homubee.jwebcrawler.domain.CrawlLog;
+import com.homubee.jwebcrawler.domain.crawlLog.CrawlBody;
+import com.homubee.jwebcrawler.domain.crawlLog.CrawlLog;
 import com.homubee.jwebcrawler.domain.Member;
-import com.homubee.jwebcrawler.dto.request.CrawlLogRequestDTO;
+import com.homubee.jwebcrawler.dto.request.CrawlBodyRequestDTO;
 import com.homubee.jwebcrawler.dto.response.CrawlLogResponseDTO;
 import com.homubee.jwebcrawler.dto.response.CrawlResultResponseDTO;
 import com.homubee.jwebcrawler.repository.CrawlLogRepository;
@@ -28,12 +29,13 @@ public class CrawlLogService {
     @Autowired
     MemberRepository memberRepository;
 
-    public CrawlResultResponseDTO saveCrawlLog(CrawlLogRequestDTO requestDTO) {
+    public CrawlResultResponseDTO saveCrawlLog(CrawlBodyRequestDTO requestDTO) {
         Long memberId = requestDTO.getMemberId();
         Optional<Member> optionalMember = memberRepository.findById(memberId);
 
-        CrawlLog crawlLog = modelMapper.map(requestDTO, CrawlLog.class);
-        String crawledResult = "Wrong Member ID";
+        CrawlLog crawlLog = modelMapper.map(requestDTO, CrawlBody.class);
+        String crawledResultTitle = "Wrong Member ID";
+        String crawledResultBody = "Wrong Member ID";
 
         if (optionalMember.isPresent()) {
             Member member = optionalMember.get();
@@ -42,15 +44,27 @@ public class CrawlLogService {
             Document document;
             try {
                 document = Jsoup.connect(crawlLog.getUrl()).get();
-                crawledResult = document.title() + " : " + document.text();
+                crawledResultTitle = document.title();
+                if (crawlLog.getRootId().equals("")) {
+                    if (crawlLog.getRootTag().equals("")) {
+                        throw new IllegalStateException();
+                    } else {
+                        crawledResultBody = document.getElementsByTag(crawlLog.getRootTag().toString()).text();
+                    }
+                } else {
+                    crawledResultBody = document.getElementById(crawlLog.getRootId().toString()).text();
+                }
+                //crawledResultBody = document.body().text();
                 crawlLog = crawlLogRepository.save(crawlLog);
             } catch (Exception e) {
-                crawledResult = "Crawling Failed";
+                crawledResultTitle = "Crawling Failed";
+                crawledResultBody = "Crawling Failed";
                 //e.printStackTrace();
             }
         }
         CrawlResultResponseDTO responseDTO = modelMapper.map(crawlLog, CrawlResultResponseDTO.class);
-        responseDTO.setResult(crawledResult);
+        responseDTO.setResultTitle(crawledResultTitle);
+        responseDTO.setResultBody(crawledResultBody);
         return responseDTO;
     }
 
