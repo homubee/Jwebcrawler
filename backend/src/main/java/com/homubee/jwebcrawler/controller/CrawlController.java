@@ -24,10 +24,10 @@ public class CrawlController {
         return crawlLogService.findCrawlLogs();
     }
 
-    @PostMapping("")
+    @PostMapping("/body")
     @Operation(summary = "크롤링 요청 API", description = "크롤링을 요청하는 API입니다.")
-    public CrawlResultResponseDTO crawl(@RequestBody CrawlBodyRequestDTO requestDTO) {
-        CrawlResultResponseDTO responseDTO = crawlLogService.saveCrawlLog(requestDTO);
+    public CrawlResultResponseDTO crawlBody(@RequestBody CrawlBodyRequestDTO requestDTO) {
+        CrawlResultResponseDTO responseDTO = crawlLogService.saveCrawlBody(requestDTO);
         return responseDTO;
     }
 }
