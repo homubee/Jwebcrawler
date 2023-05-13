@@ -34,6 +34,8 @@ public abstract class CrawlLog extends BaseEntity {
     private String rootClass;
     private String rootAttr;
 
+    public abstract String getResultString(Document document) throws Exception;
+
     public Element getRootElement(Document document) throws Exception {
         Element root;
 
@@ -49,7 +51,7 @@ public abstract class CrawlLog extends BaseEntity {
                 if (!(this.rootClass == null || this.rootClass.isEmpty())) {
                     selectString += "." + this.rootClass;
                 }
-                // select tag[attr].class
+                // select 'tag[attr].class'
                 root = document.selectFirst(selectString);
             }
         } else {

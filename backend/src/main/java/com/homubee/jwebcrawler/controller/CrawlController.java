@@ -1,6 +1,7 @@
 package com.homubee.jwebcrawler.controller;
 
 import com.homubee.jwebcrawler.dto.request.CrawlBodyRequestDTO;
+import com.homubee.jwebcrawler.dto.request.CrawlListRequestDTO;
 import com.homubee.jwebcrawler.dto.response.CrawlLogResponseDTO;
 import com.homubee.jwebcrawler.dto.response.CrawlResultResponseDTO;
 import com.homubee.jwebcrawler.service.CrawlLogService;
@@ -25,9 +26,16 @@ public class CrawlController {
     }
 
     @PostMapping("/body")
-    @Operation(summary = "크롤링 요청 API", description = "크롤링을 요청하는 API입니다.")
+    @Operation(summary = "본문 크롤링 API", description = "본문 내용을 크롤링하는 API입니다.")
     public CrawlResultResponseDTO crawlBody(@RequestBody CrawlBodyRequestDTO requestDTO) {
         CrawlResultResponseDTO responseDTO = crawlLogService.saveCrawlBody(requestDTO);
+        return responseDTO;
+    }
+
+    @PostMapping("/list")
+    @Operation(summary = "목록 크롤링 API", description = "목록 항목을 크롤링하는 API입니다.")
+    public CrawlResultResponseDTO crawlList(@RequestBody CrawlListRequestDTO requestDTO) {
+        CrawlResultResponseDTO responseDTO = crawlLogService.saveCrawlList(requestDTO);
         return responseDTO;
     }
 }

@@ -17,19 +17,20 @@ public class CrawlBody extends CrawlLog {
     @Enumerated(EnumType.STRING)
     private BodyType bodyType;
 
-    public String getBodyString(Document document) throws Exception {
+    @Override
+    public String getResultString(Document document) throws Exception {
         Element root = this.getRootElement(document);
 
-        String bodyString = "";
+        String resultString = "";
         if (BodyType.PAGE.equals(this.bodyType)) {
             Elements elements = root.getElementsByTag("p");
             for (Element element : elements) {
-                bodyString += element.text() + "\n";
+                resultString += element.text() + "\n";
             }
         } else if (BodyType.BREAK.equals(this.bodyType)) {
-            bodyString = root.wholeText();
+            resultString = root.wholeText();
         }
 
-        return bodyString;
+        return resultString;
     }
 }
