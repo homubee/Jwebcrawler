@@ -10,11 +10,13 @@ import com.homubee.jwebcrawler.repository.RoleRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
 @Transactional
@@ -22,20 +24,43 @@ public class MemberService {
     @Autowired
     ModelMapper modelMapper;
     @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
     MemberRepository memberRepository;
     @Autowired
     RoleRepository roleRepository;
 
     public void saveMember(MemberRequestDTO requestDTO) {
-        // Save
         Member member = modelMapper.map(requestDTO, Member.class);
+        // encode password
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
+
+        // check email and save
+        validateEmail(member);
+        validateDuplicateMember(member);
         memberRepository.save(member);
-        // Give default role (ROLE_USER)
+
+        // give default role (ROLE_USER)
         Role role = Role.builder()
                 .member(member)
                 .roleType(RoleType.ROLE_USER)
                 .build();
         roleRepository.save(role);
+    }
+
+    private void validateEmail(Member member) {
+        String emailRegex = "^[a-zA-Z0-9_!#$%&amp;'*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&amp;'*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        if (!pattern.matcher(member.getEmail()).matches()) {
+            throw new IllegalStateException("Wrong email format");
+        }
+    }
+
+    private void validateDuplicateMember(Member member) {
+        List<Member> findMembers = memberRepository.findByEmail(member.getEmail());
+        if (!findMembers.isEmpty()) {
+            throw new IllegalStateException("Member email is duplicated.");
+        }
     }
 
     public MemberResponseDTO findById(Long memberId) {

@@ -26,7 +26,7 @@ public class MemberController {
         return memberService.findMembers();
     }
 
-    @PostMapping("/register")
+    @PostMapping("")
     public void register(@RequestBody MemberRequestDTO requestDTO) {
         memberService.saveMember(requestDTO);
     }

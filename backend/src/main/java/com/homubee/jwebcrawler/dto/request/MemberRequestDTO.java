@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class MemberRequestDTO {
     private String email;
+    private String password;
     private String nickname;
     private Gender gender;
     private String purpose;
