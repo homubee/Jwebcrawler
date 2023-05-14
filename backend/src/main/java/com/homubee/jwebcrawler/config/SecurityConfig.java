@@ -2,6 +2,7 @@ package com.homubee.jwebcrawler.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -20,8 +21,15 @@ public class SecurityConfig {
                 .and()
                 .formLogin().disable()
                 .authorizeRequests()
-                .antMatchers("/**")
-                .permitAll();
+                .antMatchers(HttpMethod.OPTIONS)
+                .permitAll()
+                .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/api/v1/auth/**")
+                .permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/members")
+                .permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/members", "/api/v1/crawl")
+                .hasRole("ADMIN")
+                .anyRequest().authenticated();
         return http.build();
     }
 

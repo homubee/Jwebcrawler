@@ -3,7 +3,7 @@ package com.homubee.jwebcrawler.service;
 import com.homubee.jwebcrawler.domain.Member;
 import com.homubee.jwebcrawler.domain.Role;
 import com.homubee.jwebcrawler.domain.RoleType;
-import com.homubee.jwebcrawler.dto.request.MemberRequestDTO;
+import com.homubee.jwebcrawler.dto.request.MemberRegisterRequestDTO;
 import com.homubee.jwebcrawler.dto.response.MemberResponseDTO;
 import com.homubee.jwebcrawler.repository.MemberRepository;
 import com.homubee.jwebcrawler.repository.RoleRepository;
@@ -30,7 +30,7 @@ public class MemberService {
     @Autowired
     RoleRepository roleRepository;
 
-    public void saveMember(MemberRequestDTO requestDTO) {
+    public void saveMember(MemberRegisterRequestDTO requestDTO) {
         Member member = modelMapper.map(requestDTO, Member.class);
         // encode password
         member.setPassword(passwordEncoder.encode(member.getPassword()));
