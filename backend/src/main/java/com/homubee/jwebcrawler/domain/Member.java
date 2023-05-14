@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name="MEMBER")
@@ -39,10 +40,18 @@ public class Member extends BaseEntity {
 
     private String email;
 
+    private String password;
+
     private String nickname;
+
+    private String refreshToken;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
     private String purpose;
+
+    public List<String> getRoleStringList() {
+        return this.getRoleList().stream().map(role -> role.getRoleType().toString()).collect(Collectors.toList());
+    }
 }

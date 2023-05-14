@@ -1,6 +1,6 @@
 package com.homubee.jwebcrawler.controller;
 
-import com.homubee.jwebcrawler.dto.request.MemberRequestDTO;
+import com.homubee.jwebcrawler.dto.request.MemberRegisterRequestDTO;
 import com.homubee.jwebcrawler.dto.response.MemberResponseDTO;
 import com.homubee.jwebcrawler.service.MemberService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,8 +26,8 @@ public class MemberController {
         return memberService.findMembers();
     }
 
-    @PostMapping("/register")
-    public void register(@RequestBody MemberRequestDTO requestDTO) {
+    @PostMapping("")
+    public void register(@RequestBody MemberRegisterRequestDTO requestDTO) {
         memberService.saveMember(requestDTO);
     }
 }

@@ -32,6 +32,7 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.6'
 	implementation 'org.jsoup:jsoup:1.15.4'
 	implementation 'org.modelmapper:modelmapper:2.4.2'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 }
 
 tasks.named('test') {
