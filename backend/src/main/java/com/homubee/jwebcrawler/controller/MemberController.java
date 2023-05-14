@@ -1,5 +1,7 @@
 package com.homubee.jwebcrawler.controller;
 
+import com.homubee.jwebcrawler.domain.Gender;
+import com.homubee.jwebcrawler.domain.MemberSearch;
 import com.homubee.jwebcrawler.dto.request.MemberRegisterRequestDTO;
 import com.homubee.jwebcrawler.dto.response.MemberResponseDTO;
 import com.homubee.jwebcrawler.service.MemberService;
@@ -22,8 +24,15 @@ public class MemberController {
     }
 
     @GetMapping("")
-    public List<MemberResponseDTO> getMultipleMember() {
-        return memberService.findMembers();
+    public List<MemberResponseDTO> getMultipleMember(@RequestParam(value = "email", required = false) String email,
+                                                     @RequestParam(value = "nickname", required = false) String nickname,
+                                                     @RequestParam(value = "gender", required = false) Gender gender) {
+        return memberService.findMembers(
+                MemberSearch.builder()
+                .email(email)
+                .nickname(nickname)
+                .gender(gender)
+                .build());
     }
 
     @PostMapping("")
