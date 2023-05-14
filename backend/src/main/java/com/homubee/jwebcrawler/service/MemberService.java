@@ -1,6 +1,7 @@
 package com.homubee.jwebcrawler.service;
 
 import com.homubee.jwebcrawler.domain.Member;
+import com.homubee.jwebcrawler.domain.MemberSearch;
 import com.homubee.jwebcrawler.domain.Role;
 import com.homubee.jwebcrawler.domain.RoleType;
 import com.homubee.jwebcrawler.dto.request.MemberRegisterRequestDTO;
@@ -75,8 +76,8 @@ public class MemberService {
         }
     }
 
-    public List<MemberResponseDTO> findMembers() {
-        List<Member> members = memberRepository.findAll();
+    public List<MemberResponseDTO> findMembers(MemberSearch memberSearch) {
+        List<Member> members = memberRepository.search(memberSearch); //memberRepository.findAll();
         return modelMapper.map(members, new TypeToken<List<MemberResponseDTO>>(){}.getType());
     }
 }
