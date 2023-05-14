@@ -1,5 +1,7 @@
 package com.homubee.jwebcrawler.config;
 
+import com.homubee.jwebcrawler.security.JwtAccessDeniedHandler;
+import com.homubee.jwebcrawler.security.JwtAuthenticationEntryPoint;
 import com.homubee.jwebcrawler.security.JwtAuthenticationFilter;
 import com.homubee.jwebcrawler.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    @Autowired
+    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
+    @Autowired
+    private JwtAccessDeniedHandler jwtAccessDeniedHandler;
     @Autowired
     JwtTokenProvider jwtTokenProvider;
 
@@ -36,6 +43,10 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/api/v1/members", "/api/v1/crawl")
                 .hasRole("ADMIN")
                 .anyRequest().authenticated()
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedHandler(jwtAccessDeniedHandler)
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
         return http.build();
