@@ -4,6 +4,7 @@ import com.homubee.jwebcrawler.domain.Member;
 import com.homubee.jwebcrawler.dto.request.MemberLoginRequestDTO;
 import com.homubee.jwebcrawler.dto.response.MemberLoginResponseDTO;
 import com.homubee.jwebcrawler.repository.MemberRepository;
+import com.homubee.jwebcrawler.security.JwtTokenProvider;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -22,6 +24,8 @@ public class AuthService {
     PasswordEncoder passwordEncoder;
     @Autowired
     MemberRepository memberRepository;
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
 
     public MemberLoginResponseDTO login(MemberLoginRequestDTO requestDTO) {
         MemberLoginResponseDTO responseDTO = new MemberLoginResponseDTO();
@@ -39,8 +43,12 @@ public class AuthService {
         }
 
         // set tokens
-        responseDTO.setAccessToken("test-access");
-        responseDTO.setRefreshToken("test-refresh");
+        responseDTO.setAccessToken(jwtTokenProvider.createToken(member.getEmail(),
+                member.getRoleList().stream().map(role -> role.getRoleType().toString()).collect(Collectors.toList()),
+                true));
+        responseDTO.setRefreshToken(jwtTokenProvider.createToken(member.getEmail(),
+                member.getRoleList().stream().map(role -> role.getRoleType().toString()).collect(Collectors.toList()),
+                false));
 
         return responseDTO;
     }
