@@ -31,10 +31,11 @@ public class MemberController {
                                                      @PageableDefault Pageable pageable) {
         return memberService.findMembers(
                 MemberSearch.builder()
-                .email(email)
-                .nickname(nickname)
-                .gender(gender)
-                .build(), pageable);
+                        .email(email)
+                        .nickname(nickname)
+                        .gender(gender)
+                        .build(), pageable
+        );
     }
 
     @PostMapping("")

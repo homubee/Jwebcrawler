@@ -2,17 +2,18 @@ package com.homubee.jwebcrawler.service;
 
 import com.homubee.jwebcrawler.domain.Member;
 import com.homubee.jwebcrawler.domain.Post;
+import com.homubee.jwebcrawler.domain.PostSearch;
 import com.homubee.jwebcrawler.dto.request.PostRequestDTO;
 import com.homubee.jwebcrawler.dto.response.PostResponseDTO;
 import com.homubee.jwebcrawler.repository.MemberRepository;
 import com.homubee.jwebcrawler.repository.PostRepository;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -80,9 +81,9 @@ public class PostService {
         }
     }
 
-    public List<PostResponseDTO> findPosts() {
-        List<Post> posts = postRepository.findAll();
-        return modelMapper.map(posts, new TypeToken<List<PostResponseDTO>>(){}.getType());
+    public Page<PostResponseDTO> findPosts(PostSearch postSearch, Pageable pageable) {
+        Page<Post> posts = postRepository.search(postSearch, pageable);
+        return posts.map(post -> modelMapper.map(post, PostResponseDTO.class));
     }
 
     public void deletePost(Long postId) {

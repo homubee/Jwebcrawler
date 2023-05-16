@@ -42,7 +42,13 @@ public class MemberRepositoryImpl extends QuerydslRepositorySupport implements C
         query.offset(pageable.getOffset());
         query.limit(pageable.getPageSize());
         for (Sort.Order order : pageable.getSort()) {
-            PathBuilder pathBuilder = new PathBuilder(member.getType(), member.getMetadata());
+            PathBuilder pathBuilder;
+            if (order.getProperty().equals("email") || order.getProperty().equals("nickname")) {
+                pathBuilder = new PathBuilder(member.getType(), member.getMetadata());
+            } else {
+                continue;
+            }
+            System.out.println("=========== PATH : " + pathBuilder.get(order.getProperty()));
             query.orderBy(new OrderSpecifier<>(order.isAscending() ? Order.ASC : Order.DESC,
                     pathBuilder.get(order.getProperty())));
         }
