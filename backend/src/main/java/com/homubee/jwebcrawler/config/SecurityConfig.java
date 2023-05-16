@@ -40,9 +40,8 @@ public class SecurityConfig {
                 .permitAll()
                 .antMatchers(HttpMethod.POST, "/api/v1/members")
                 .permitAll()
-                // for easy test
-                //.antMatchers(HttpMethod.GET, "/api/v1/members", "/api/v1/crawl")
-                //.hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/v1/members", "/api/v1/crawl")
+                .hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()
