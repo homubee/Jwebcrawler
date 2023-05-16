@@ -7,9 +7,10 @@ import com.homubee.jwebcrawler.dto.response.MemberResponseDTO;
 import com.homubee.jwebcrawler.service.MemberService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/members")
@@ -24,15 +25,17 @@ public class MemberController {
     }
 
     @GetMapping("")
-    public List<MemberResponseDTO> getMultipleMember(@RequestParam(value = "email", required = false) String email,
+    public Page<MemberResponseDTO> getMultipleMember(@RequestParam(value = "email", required = false) String email,
                                                      @RequestParam(value = "nickname", required = false) String nickname,
-                                                     @RequestParam(value = "gender", required = false) Gender gender) {
+                                                     @RequestParam(value = "gender", required = false) Gender gender,
+                                                     @PageableDefault Pageable pageable) {
         return memberService.findMembers(
                 MemberSearch.builder()
-                .email(email)
-                .nickname(nickname)
-                .gender(gender)
-                .build());
+                        .email(email)
+                        .nickname(nickname)
+                        .gender(gender)
+                        .build(), pageable
+        );
     }
 
     @PostMapping("")

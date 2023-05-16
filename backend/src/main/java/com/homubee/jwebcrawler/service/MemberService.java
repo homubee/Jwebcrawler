@@ -9,8 +9,9 @@ import com.homubee.jwebcrawler.dto.response.MemberResponseDTO;
 import com.homubee.jwebcrawler.repository.MemberRepository;
 import com.homubee.jwebcrawler.repository.RoleRepository;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +40,7 @@ public class MemberService {
         // check email and save
         validateEmail(member);
         validateDuplicateMember(member);
+        boolean isFirst = memberRepository.findAll().isEmpty();
         memberRepository.save(member);
 
         // give default role (ROLE_USER)
@@ -47,6 +49,15 @@ public class MemberService {
                 .roleType(RoleType.ROLE_USER)
                 .build();
         roleRepository.save(role);
+
+        // give admin role for first user
+        if (isFirst) {
+            Role admin = Role.builder()
+                    .member(member)
+                    .roleType(RoleType.ROLE_ADMIN)
+                    .build();
+            roleRepository.save(admin);
+        }
     }
 
     private void validateEmail(Member member) {
@@ -76,8 +87,8 @@ public class MemberService {
         }
     }
 
-    public List<MemberResponseDTO> findMembers(MemberSearch memberSearch) {
-        List<Member> members = memberRepository.search(memberSearch); //memberRepository.findAll();
-        return modelMapper.map(members, new TypeToken<List<MemberResponseDTO>>(){}.getType());
+    public Page<MemberResponseDTO> findMembers(MemberSearch memberSearch, Pageable pageable) {
+        Page<Member> members = memberRepository.search(memberSearch, pageable);
+        return members.map(member -> modelMapper.map(member, MemberResponseDTO.class));
     }
 }
