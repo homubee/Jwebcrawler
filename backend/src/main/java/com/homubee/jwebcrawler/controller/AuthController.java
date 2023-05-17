@@ -4,6 +4,7 @@ import com.homubee.jwebcrawler.dto.request.MemberLoginRequestDTO;
 import com.homubee.jwebcrawler.dto.response.MemberLoginResponseDTO;
 import com.homubee.jwebcrawler.security.TokenInfo;
 import com.homubee.jwebcrawler.service.AuthService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,8 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping("/login")
+    @Operation(summary = "로그인 API", description = "액세스/리프레쉬 토큰을 신규로 발급하는 API입니다.\n\n" +
+            "액세스 토큰은 Response Body에, 리프레쉬 토큰은 jweb_refresh_token 쿠키에 저장하여 전달합니다.")
     public MemberLoginResponseDTO login(@RequestBody MemberLoginRequestDTO requestDTO, HttpServletResponse response) {
         TokenInfo tokenInfo = authService.login(requestDTO);
 
@@ -44,11 +47,15 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
+    @Operation(summary = "로그아웃 API", description = "로그아웃 요청을 수행하는 API입니다.\n\n" +
+            "(Response Body 없음)")
     public void logout() {
         authService.logout();
     }
 
     @PostMapping("/refresh")
+    @Operation(summary = "리프레쉬(액세스 토큰 갱신 발급) API", description = "액세스 토큰을 갱신하여 발급하는 API입니다.\n\n" +
+            "jweb_refresh_token 쿠키 검증 후 토큰을 발급합니다.")
     public ResponseEntity<MemberLoginResponseDTO> refresh(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
 
