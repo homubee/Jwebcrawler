@@ -36,6 +36,12 @@ public abstract class CrawlLog extends BaseEntity {
 
     public abstract String getResultString(Document document) throws Exception;
 
+    /**
+     * 주어진 html을 구문 분석하여 Root 태그 속성에 맞는 결과 Element 객체를 리턴한다.
+     * @param document
+     * @return Root html element
+     * @throws Exception
+     */
     public Element getRootElement(Document document) throws Exception {
         Element root;
 

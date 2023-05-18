@@ -26,27 +26,28 @@ public class PostRepositoryImpl extends QuerydslRepositorySupport implements Cus
 
         JPQLQuery query = from(post);
 
+        // set where statement
         if (StringUtils.hasText(postSearch.getTitle())) {
             query.where(post.title.contains(postSearch.getTitle()));
         }
-
         if (StringUtils.hasText(postSearch.getContent())) {
             query.where(post.content.contains(postSearch.getContent()));
         }
-
         if (StringUtils.hasText(postSearch.getMemberEmail())) {
             query.leftJoin(post.member, member).where(member.email.contains(postSearch.getMemberEmail()));
         }
-
         if (StringUtils.hasText(postSearch.getMemberNickname())) {
             query.leftJoin(post.member, member).where(member.nickname.contains(postSearch.getMemberNickname()));
         }
 
+        // set page option
         query.offset(pageable.getOffset());
         query.limit(pageable.getPageSize());
+        // set orderBy statement
         for (Sort.Order order : pageable.getSort()) {
             PathBuilder pathBuilder;
-
+            // get different PathBuilder by property
+            // invalid property wouldn't include to query
             if (order.getProperty().equals("title") || order.getProperty().equals("content")) {
                 pathBuilder = new PathBuilder(post.getType(), post.getMetadata());
             } else if (order.getProperty().equals("email") || order.getProperty().equals("nickname")) {

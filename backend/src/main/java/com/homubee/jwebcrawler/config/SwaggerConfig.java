@@ -16,6 +16,7 @@ public class SwaggerConfig {
                 .info(new Info().title("JWebCrawler API")
                         .description("JWebCrawler 프로젝트 API 명세서입니다.")
                         .version("v1.0.0"))
+                // JWT configuration
                 .components(new Components().addSecuritySchemes("Authorization",
                         new SecurityScheme()
                                 .name("Authorization")

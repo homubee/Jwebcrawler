@@ -21,6 +21,12 @@ public class CrawlList extends CrawlLog {
     private String listAttr;
     private String targetTag;
 
+    /**
+     * Root 태그에서 주어진 list 속성에 맞는 태그로 목록을 찾고, 해당 목록에서 필요한 정보가 담긴 target 태그 html을 구문 분석하여 결과 문자열을 리턴한다.
+     * @param document
+     * @return String of target tag text in list elements
+     * @throws Exception
+     */
     @Override
     public String getResultString(Document document) throws Exception {
         Element root = this.getRootElement(document);
