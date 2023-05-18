@@ -63,6 +63,7 @@ public class AuthService {
             throw new IllegalStateException("Member not exists.");
         }
 
+        // clear refresh token
         Member member = findMembers.get(0);
         member.setRefreshToken("");
         memberRepository.save(member);

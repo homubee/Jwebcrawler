@@ -17,6 +17,12 @@ public class CrawlBody extends CrawlLog {
     @Enumerated(EnumType.STRING)
     private BodyType bodyType;
 
+    /**
+     * Root 태그에서 주어진 BodyType에 맞는 형태로 html을 구문 분석하여 결과 문자열을 리턴한다.
+     * @param document
+     * @return String of root tag body text
+     * @throws Exception
+     */
     @Override
     public String getResultString(Document document) throws Exception {
         Element root = this.getRootElement(document);
@@ -28,6 +34,7 @@ public class CrawlBody extends CrawlLog {
                 resultString += element.text() + "\n";
             }
         } else if (BodyType.BREAK.equals(this.bodyType)) {
+            // get text include whitespace by wholeText method
             resultString = root.wholeText();
         }
 

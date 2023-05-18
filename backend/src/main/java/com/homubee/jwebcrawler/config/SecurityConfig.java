@@ -34,12 +34,15 @@ public class SecurityConfig {
                 .and()
                 .formLogin().disable()
                 .authorizeRequests()
+                // option 메소드는 전부 권한 없이 공개
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()
+                // swagger, 회원가입, 인증 관련 API는 권한 없이 공개
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/api/v1/auth/**")
                 .permitAll()
                 .antMatchers(HttpMethod.POST, "/api/v1/members")
                 .permitAll()
+                // 회원 전체 조회, 크롤링 이력 전체 조회하는 API는 ADMIN 권한에게만 공개
                 .antMatchers(HttpMethod.GET, "/api/v1/members", "/api/v1/crawl")
                 .hasRole("ADMIN")
                 .anyRequest().authenticated()

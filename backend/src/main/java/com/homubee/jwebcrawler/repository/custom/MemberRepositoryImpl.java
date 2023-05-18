@@ -27,22 +27,24 @@ public class MemberRepositoryImpl extends QuerydslRepositorySupport implements C
 
         JPQLQuery query = from(member);
 
+        // set where statement
         if (StringUtils.hasText(memberSearch.getEmail())) {
             query.where(member.email.contains(memberSearch.getEmail()));
         }
-
         if (StringUtils.hasText(memberSearch.getNickname())) {
             query.where(member.nickname.contains(memberSearch.getNickname()));
         }
-
         if (memberSearch.getGender() != null) {
             query.where(member.gender.eq(memberSearch.getGender()));
         }
 
+        // set page option
         query.offset(pageable.getOffset());
         query.limit(pageable.getPageSize());
+        // set orderBy statement
         for (Sort.Order order : pageable.getSort()) {
             PathBuilder pathBuilder;
+            // invalid property wouldn't include to query
             if (order.getProperty().equals("email") || order.getProperty().equals("nickname")) {
                 pathBuilder = new PathBuilder(member.getType(), member.getMetadata());
             } else {
