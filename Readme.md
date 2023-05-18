@@ -47,6 +47,10 @@
 - 작업 예정
 
 
+## Project Structure
+![project structure - backend](https://github.com/homubee/Jwebcrawler/assets/83688807/c3397d3e-5669-4998-be7a-6e593ab65002)
+
+
 ## Main Feature
 
 ### Web API
