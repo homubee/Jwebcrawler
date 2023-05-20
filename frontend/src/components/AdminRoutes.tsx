@@ -30,6 +30,8 @@ import AdminSignInForm from '../views/auth/AdminSignInForm';
 import WrongPage from '../views/WrongPage';
 import AdminMain from '../views/AdminMain';
 import MemberList from '../views/member/MemberList';
+import AdminPostList from '../views/post/AdminPostList';
+import CrawlLogList from '../views/crawl/CrawlLogList';
 
 const mainListItems = (
   <Fragment>
@@ -39,29 +41,23 @@ const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Orders" />
-    </ListItemButton>
-    <ListItemButton>
+    <ListItemButton href="/admin/member">
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="회원 목록" />
     </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItemButton>
-    <ListItemButton>
+    <ListItemButton href="/admin/post">
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
-      <ListItemText primary="Integrations" />
+      <ListItemText primary="게시글 목록" />
+    </ListItemButton>
+    <ListItemButton href="/admin/crawl">
+      <ListItemIcon>
+        <BarChartIcon />
+      </ListItemIcon>
+      <ListItemText primary="크롤링 이력" />
     </ListItemButton>
   </Fragment>
 );
@@ -199,6 +195,8 @@ export default function AdminRoutes() {
                 <Route path="/" element={<AdminMain/>} />
                 <Route path="/login" element={<AdminSignInForm/>} />
                 <Route path="/member" element={<MemberList/>} />
+                <Route path="/post" element={<AdminPostList/>} />
+                <Route path="/crawl" element={<CrawlLogList/>} />
                 <Route path = "/*" element={<WrongPage/>} />
               </Routes>
               </Paper>
