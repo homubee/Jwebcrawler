@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 
 interface tableListProps {
   title: string;
+  searchForm?: ReactElement;
   tableHeads: string[];
   tableBody: ReactElement;
 }
@@ -17,6 +18,7 @@ function TableList(props: tableListProps) {
       <Typography component="h2" variant="h6" color="primary" gutterBottom>
       {props.title}
       </Typography>
+      {props.searchForm && props.searchForm}
       <Table size="small">
         <TableHead>
           <TableRow>

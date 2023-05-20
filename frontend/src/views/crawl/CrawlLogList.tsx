@@ -14,7 +14,7 @@ function CrawlLogList() {
   const [crawlLogList, setCrawlLogList] = useState<CrawlLog[]>([]);
 
   useEffect(() => {
-    // 멤버 목록 조회
+    // 크롤링 이력 조회
     apiInstance.get("/crawl")
     .then((res) => {
       setCrawlLogList([...res.data]);
