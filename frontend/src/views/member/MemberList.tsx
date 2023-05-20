@@ -1,4 +1,4 @@
-import { MouseEvent, Fragment } from 'react';
+import { useState, useEffect, MouseEvent, Fragment } from 'react';
 import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -6,6 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
+import { apiInstance } from '../network/axiosInstance';
 
 // Generate Order Data
 function createData(
@@ -60,6 +61,16 @@ function preventDefault(event: MouseEvent) {
 }
 
 export default function MemberList() {
+  const [memberList, setMemberList] = useState<any[]>([]);
+
+  useEffect(() => {
+    // 멤버 목록 조회
+    apiInstance.get("/members")
+    .then((res) => {
+      setMemberList([...res.data.content]);
+    });
+  }, []);
+
   return (
     <Fragment>
       <Typography component="h2" variant="h6" color="primary" gutterBottom>
