@@ -16,7 +16,7 @@ export function MemberSearchForm(props: memberSearchProps) {
   const [selectType, setSelectType] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
 
-  const handleChange = (e: SelectChangeEvent) => {
+  const onChangeSearch = (e: SelectChangeEvent) => {
     setSelectType(e.target.value);
   };
 
@@ -41,7 +41,7 @@ export function MemberSearchForm(props: memberSearchProps) {
               id="searchType"
               value={selectType}
               label="searchType"
-              onChange={handleChange}
+              onChange={onChangeSearch}
             >
               <MenuItem value={"email"}>이메일</MenuItem>
               <MenuItem value={"nickname"}>닉네임</MenuItem>
@@ -75,7 +75,7 @@ export function PostSearchForm(props: postSearchProps) {
   const [selectType, setSelectType] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
 
-  const handleChange = (e: SelectChangeEvent) => {
+  const onChangeSearch = (e: SelectChangeEvent) => {
     setSelectType(e.target.value);
   };
 
@@ -100,7 +100,7 @@ export function PostSearchForm(props: postSearchProps) {
               id="searchType"
               value={selectType}
               label="searchType"
-              onChange={handleChange}
+              onChange={onChangeSearch}
             >
               <MenuItem value={"title"}>제목</MenuItem>
               <MenuItem value={"content"}>내용</MenuItem>
