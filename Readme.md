@@ -10,10 +10,13 @@
 ## Demo Website
 > API Docs : http://15.164.189.25:8090/swagger-ui/index.html
 > 
+> Web Demo : https://jwebcrawler.vercel.app
+> 
 > ※ 원활한 사이트 관리를 위해 사용자 정보는 주기적으로 삭제될 수 있습니다.
 
 
 ## Tech Stack
+### Backend
 <div align=center>
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
   <img src="https://img.shields.io/badge/spring boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
@@ -34,6 +37,19 @@
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
 </div>
 
+### Frontend
+<div align=center>
+  <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
+  <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+  <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white">
+  <img src="https://img.shields.io/badge/mui-2196F3?style=for-the-badge&logo=mui&logoColor=white">
+  <br>
+
+  <img src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
+  <img src="https://img.shields.io/badge/vscode-007ACC?style=for-the-badge&logo=visual studio code&logoColor=white">
+  <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+  <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+</div>
 
 ## Environment
 
@@ -44,11 +60,12 @@
 - Jsoup 1.15.4
 
 ### Frontend
-- 작업 예정
+- React 18.2.0
+- Node.js 16.14.2
 
 
 ## Project Structure
-![project structure - backend](https://github.com/homubee/Jwebcrawler/assets/83688807/c3397d3e-5669-4998-be7a-6e593ab65002)
+![project structure](https://github.com/homubee/Jwebcrawler/assets/83688807/cbb98652-8ea1-4230-88e8-656d44d4bfc2)
 
 
 ## Main Feature
