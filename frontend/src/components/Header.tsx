@@ -1,11 +1,37 @@
+import { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { apiInstance } from '../network/axiosInstance';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../store/authSlice';
+import { Box } from '@mui/material';
 
 function Header() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const memberInfo = useSelector((state: RootState) => state.auth);
+
+  const [nickname, setNickname] = useState(memberInfo.nickname);
+
+  useEffect(() => {
+    setNickname(memberInfo.nickname);
+  }, [memberInfo]);
+
+  const onClickLogout = async () => {
+    await apiInstance.post("/auth/logout");
+    dispatch(logout());
+
+    navigate("/");
+  }
+  
   return ( 
     <AppBar
       position="static"
@@ -20,7 +46,7 @@ function Header() {
             JWebCrawler
           </Link>
         </Typography>
-        <nav>
+        <Box sx={{ display:"flex", justifyContent:"flex-end", alignItems:"center" }}>
           <Link
             variant="button"
             color="text.primary"
@@ -45,13 +71,26 @@ function Header() {
           >
             도움말
           </Link>
-        </nav>
-        <Button href="/login" variant="outlined" sx={{ my: 1, mx: 1.5 }}>
-          Sign In
-        </Button>
-        <Button href="/register" variant="outlined" sx={{ my: 1, mx: 1.5 }}>
-          Sign Up
-        </Button>
+          {nickname === "" ? 
+          <>
+          <Button href="/login" variant="outlined" sx={{ my: 1, mx: 1.5 }}>
+            Sign In
+          </Button>
+          <Button href="/register" variant="outlined" sx={{ my: 1, mx: 1.5 }}>
+            Sign Up
+          </Button>
+          </>
+          :
+          <>
+          <Typography variant="h6" color="inherit" sx={{ my: 1, mx: 1.5 }}>
+            {nickname} 님
+          </Typography>
+          <Button variant="outlined" onClick={onClickLogout} sx={{ my: 1, mx: 1.5 }}>
+            Logout
+          </Button>
+          </>
+          }
+        </Box>
       </Toolbar>
     </AppBar>
   );

@@ -7,12 +7,18 @@ import { useNavigate, useParams } from 'react-router-dom';
 import WrongPage from '../WrongPage';
 import CommentInputBox from '../../components/CommentInputBox';
 import CommentBox from '../../components/CommentBox';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 function PostView() {
-  const navigate = useNavigate();
-
   const { postId } = useParams();
 
+  const navigate = useNavigate();
+    
+  const memberInfo = useSelector((state: RootState) => state.auth);
+
+  const [memberId, setMemberId] = useState(memberInfo.id);
+  const [roleList, setRoleList] = useState(memberInfo.roleList);
   const [post, setPost] = useState<Post>()
 
   useEffect(() => {
@@ -57,11 +63,13 @@ function PostView() {
           />
         </Box>
       </Box>
+      { (memberId === post?.member.id || roleList.includes("ROLE_ADMIN")) &&
       <Box sx={{display:"flex", justifyContent:"flex-end"}}>
         <Button variant="contained" sx={{mr:1, width:100}} onClick={onClickEditPost}>
           수정하기
         </Button>
       </Box>
+      }
       <Box sx={{mb: 2}}>
         <Typography variant="subtitle1">
           댓글 목록 ({post?.commentList.length})

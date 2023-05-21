@@ -10,14 +10,19 @@ import { useState } from 'react';
 import { apiInstance } from '../../network/axiosInstance';
 import { CrawlBodyRequestDTO, CrawlListRequestDTO } from '../../type/apiEntity';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 function CrawlForm() {
   const navigate = useNavigate();
 
+  const memberInfo = useSelector((state: RootState) => state.auth);
+
+  const [memberId, setMemberId] = useState(memberInfo.id);
   const [crawlType, setCrawlType] = useState("body");
   const [findIdType, setFindIdType] = useState(true);
   const [bodyRequest, setBodyRequest] = useState<CrawlBodyRequestDTO>({
-    memberId: 1,
+    memberId: memberId,
     url: "",
     rootId: "",
     rootTag: "",
@@ -26,7 +31,7 @@ function CrawlForm() {
     bodyType: "",
   })
   const [listRequest, setListRequest] = useState<CrawlListRequestDTO>({
-    memberId: 1,
+    memberId: memberId,
     url: "",
     rootId: "",
     rootTag: "",

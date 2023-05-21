@@ -23,8 +23,8 @@ public class JwtTokenProvider {
     @Value("${jwt.refresh-token-key}")
     private String refreshTokenSecretKey;
 
-    private Long accessTokenValidTime = 3 * 60 * 1000L; // 3 min (for test)
-    private Long refreshTokenValidTime = 5 * 60 * 1000L; // 5 min (for test)
+    private Long accessTokenValidTime = 60 * 60 * 1000L; // 60 min
+    private Long refreshTokenValidTime = 7 * 24 * 60 * 60 * 1000L; // 7 days
 
     @Autowired
     private CustomUserDetailService CustomUserDetailService;

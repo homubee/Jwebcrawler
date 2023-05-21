@@ -5,11 +5,17 @@ import { useState } from 'react';
 import { apiInstance } from '../../network/axiosInstance';
 import { PostRequestDTO } from '../../type/apiEntity';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 function CreatePostForm() {
   const navigate = useNavigate();
+
+  const memberInfo = useSelector((state: RootState) => state.auth);
+
+  const [memberId, setMemberId] = useState(memberInfo.id);
   const [postRequest, setPostRequest] = useState<PostRequestDTO>({
-    memberId: 1,
+    memberId: memberId,
     title: "",
     content: "",
   })

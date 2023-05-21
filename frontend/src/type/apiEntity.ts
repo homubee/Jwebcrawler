@@ -49,6 +49,19 @@ export interface CrawlListRequestDTO extends CrawlBaseRequest {
   targetTag?: string;
 }
 
+export interface MemberLoginRequestDTO {
+  email: string;
+  password: string;
+}
+
+export interface MemberRegisterRequestDTO {
+  email: string;
+  password: string;
+  nickname: string;
+  gender: string;
+  purpose: string;
+}
+
 export interface PostRequestDTO {
   memberId: number;
   title: string;

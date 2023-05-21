@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiInstance } from '../network/axiosInstance';
 import { CommentRequestDTO } from '../type/apiEntity';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 interface CommentInputProps {
   postId: number;
@@ -10,8 +12,13 @@ interface CommentInputProps {
 
 function CommentInputBox(props: CommentInputProps) {
   const navigate = useNavigate();
+
+  const memberInfo = useSelector((state: RootState) => state.auth);
+
+  const [memberId, setMemberId] = useState(memberInfo.id);
+
   const [commentRequest, setCommentRequest] = useState<CommentRequestDTO>({
-    memberId: 1,
+    memberId: memberId,
     postId: props.postId,
     content: "",
   });

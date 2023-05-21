@@ -6,14 +6,21 @@ import { apiInstance } from '../../network/axiosInstance';
 import { Post, PostRequestDTO } from '../../type/apiEntity';
 import { useNavigate, useParams } from 'react-router-dom';
 import WrongPage from '../WrongPage';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 function UpdatePostForm() {
-  const navigate = useNavigate();
-
   const { postId } = useParams();
 
+  const navigate = useNavigate();
+  
+  const memberInfo = useSelector((state: RootState) => state.auth);
+
+  const [memberId, setMemberId] = useState(memberInfo.id);
+  const [roleList, setRoleList] = useState(memberInfo.roleList);
+
   const [postRequest, setPostRequest] = useState<PostRequestDTO>({
-    memberId: 1,
+    memberId: memberId,
     title: "",
     content: "",
   });
@@ -27,6 +34,10 @@ function UpdatePostForm() {
         title: postRes.title,
         content: postRes.content,
       });
+
+      if (memberId !== postRes.member.id && !roleList.includes("ROLE_ADMIN")) {
+        navigate(-1);
+      }
     });
   }, [postId]);
 

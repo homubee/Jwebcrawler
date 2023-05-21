@@ -33,7 +33,7 @@ public class AuthController {
         TokenInfo tokenInfo = authService.login(requestDTO);
 
         ResponseCookie cookie = ResponseCookie.from("jweb_refresh_token", tokenInfo.getRefreshToken())
-                .maxAge(5 * 60) // 5 min (for test)
+                .maxAge(7 * 24 * 60 * 60) // 7 days
                 .path("/")
                 .secure(true)
                 .sameSite("None")
@@ -42,6 +42,7 @@ public class AuthController {
         response.setHeader("Set-Cookie", cookie.toString());
 
         MemberLoginResponseDTO responseDTO = new MemberLoginResponseDTO();
+        responseDTO.setMemberId(tokenInfo.getMemberId());
         responseDTO.setAccessToken(tokenInfo.getAccessToken());
         return responseDTO;
     }
