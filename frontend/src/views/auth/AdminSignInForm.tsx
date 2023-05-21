@@ -10,9 +10,12 @@ import Container from '@mui/material/Container';
 import { MemberLoginRequestDTO } from '../../type/apiEntity';
 import { apiInstance } from '../../network/axiosInstance';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login, setInfo } from '../../store/authSlice';
 
 function AdminSignInForm() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [memberRequest, SetMemberRequest] = useState<MemberLoginRequestDTO>({
     email: "",
@@ -30,7 +33,19 @@ function AdminSignInForm() {
   const onClickSubmitSignIn = async () => {
     await apiInstance.post("/auth/login", memberRequest)
     .then((res) => {
-      ;
+      dispatch(login({
+        id: res.data.memberId,
+        accessToken: res.data.accessToken,
+      }));
+
+      apiInstance.get(`/members/${res.data.memberId}`)
+      .then((res) => {
+        dispatch(setInfo({
+          roleList: res.data.roleList,
+          email: res.data.email,
+          nickname: res.data.nickname,
+        }));
+      });
     });
 
     navigate("/admin");

@@ -42,6 +42,7 @@ public class AuthController {
         response.setHeader("Set-Cookie", cookie.toString());
 
         MemberLoginResponseDTO responseDTO = new MemberLoginResponseDTO();
+        responseDTO.setMemberId(tokenInfo.getMemberId());
         responseDTO.setAccessToken(tokenInfo.getAccessToken());
         return responseDTO;
     }

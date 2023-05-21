@@ -24,7 +24,7 @@ function SignUp() {
     email: "",
     password: "",
     nickname: "",
-    gender: "",
+    gender: "MALE",
     purpose: "",
   })
 

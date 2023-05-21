@@ -46,6 +46,7 @@ public class AuthService {
         TokenInfo tokenInfo = new TokenInfo();
         String accessToken = jwtTokenProvider.createToken(member.getEmail(), member.getRoleStringList(), true);
         String refreshToken = jwtTokenProvider.createToken(member.getEmail(), member.getRoleStringList(), false);
+        tokenInfo.setMemberId(member.getId());
         tokenInfo.setAccessToken(accessToken);
         tokenInfo.setRefreshToken(refreshToken);
         member.setRefreshToken(refreshToken);
