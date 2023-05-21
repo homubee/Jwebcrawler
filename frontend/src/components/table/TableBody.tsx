@@ -37,6 +37,7 @@ export function PostTableBody(props: postTableProps) {
           <TableCell sx={{wordBreak:"break-all"}}>{post.title}</TableCell>
           <TableCell>{post.member.nickname}</TableCell>
           <TableCell>{post.commentList.length}</TableCell>
+          <TableCell>{post.viewCnt}</TableCell>
         </TableRow>
       )}
     </TableBody>

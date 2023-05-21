@@ -8,6 +8,8 @@ import UserMain from '../views/UserMain';
 import CrawlForm from '../views/crawl/CrawlForm';
 import { Box } from '@mui/material';
 import CrawlResult from '../views/crawl/CrawlResult';
+import PostList from '../views/post/PostList';
+import CreatePostForm from '../views/post/CreatePostForm';
 
 const UserRoutes = () => {
   return (
@@ -20,6 +22,8 @@ const UserRoutes = () => {
           <Route path="/register" element={<SignUp/>} />
           <Route path="/crawl" element={<CrawlForm/>} />
           <Route path="/crawl/result" element={<CrawlResult/>} />
+          <Route path="/post" element={<PostList/>} />
+          <Route path="/post/new" element={<CreatePostForm/>} />
           <Route path = "/*" element={<WrongPage/>} />
         </Routes>
       </Box>

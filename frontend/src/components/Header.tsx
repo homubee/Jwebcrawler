@@ -32,7 +32,7 @@ export default function Header() {
           <Link
             variant="button"
             color="text.primary"
-            href="#"
+            href="/post"
             sx={{ my: 1, mx: 1.5 }}
           >
             게시판

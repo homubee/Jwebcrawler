@@ -7,6 +7,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import { Grid, TextField } from '@mui/material';
 import { EntitySearch } from '../type/common';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface memberSearchProps {
   setSearch: React.Dispatch<React.SetStateAction<EntitySearch>>
@@ -72,6 +73,8 @@ interface postSearchProps {
 }
 
 export function PostSearchForm(props: postSearchProps) {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [selectType, setSelectType] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
 
@@ -89,9 +92,13 @@ export function PostSearchForm(props: postSearchProps) {
     });
   }
 
+  const onClickWrite = () => {
+    navigate(location.pathname + "/new");
+  }
+
   return (
     <Box sx={{ mt:1, mb:1 }}>
-      <Grid container spacing={3} alignItems="center">
+      <Grid container spacing={4} alignItems="center">
         <Grid item xs={2}>
           <FormControl fullWidth>
             <InputLabel id="searchType">검색조건</InputLabel>
@@ -115,13 +122,19 @@ export function PostSearchForm(props: postSearchProps) {
             onChange={onChangeKeyword}
           />
         </Grid>
-        <Grid item xs={4}>
-          
-            <Button variant="contained" onClick={onClickSearch}>
-              <Box sx={{p: 1}}>
-                검색
-              </Box>
-            </Button>
+        <Grid item xs={3}>
+          <Button variant="contained" onClick={onClickSearch}>
+            <Box sx={{p: 1}}>
+              검색
+            </Box>
+          </Button>
+        </Grid>
+        <Grid item xs={3} sx={{display:"flex", justifyContent:"flex-end"}}>
+          <Button variant="contained" color={"warning"} onClick={onClickWrite}>
+            <Box sx={{p: 1}}>
+              글작성
+            </Box>
+          </Button>
         </Grid>
       </Grid>
     </Box>

@@ -12,9 +12,10 @@ const postHead = [
   "제목", 
   "닉네임", 
   "댓글수", 
+  "조회수", 
 ];
 
-function AdminPostList() {
+function PostList() {
   const [postList, setPostList] = useState<Post[]>([]);
   const [postSearch, setPostSearch] = useState<EntitySearch>({
     title: "",
@@ -36,4 +37,4 @@ function AdminPostList() {
   );
 }
 
-export default AdminPostList;
+export default PostList;
