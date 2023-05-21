@@ -34,7 +34,7 @@ export function PostTableBody(props: postTableProps) {
       {props.posts.map((post) => 
         <TableRow key={post.id}>
           <TableCell>{post.id}</TableCell>
-          <TableCell>{post.title}</TableCell>
+          <TableCell sx={{wordBreak:"break-all"}}>{post.title}</TableCell>
           <TableCell>{post.member.nickname}</TableCell>
           <TableCell>{post.commentList.length}</TableCell>
         </TableRow>
@@ -53,7 +53,7 @@ export function CrawlLogTableBody(props: crawlLogTableProps) {
       {props.crawlLogs.map((crawlLog) => 
         <TableRow key={crawlLog.id}>
           <TableCell>{crawlLog.id}</TableCell>
-          <TableCell>{crawlLog.url}</TableCell>
+          <TableCell sx={{wordBreak:"break-all"}}>{crawlLog.url}</TableCell>
           <TableCell>{ISOtoKST(crawlLog.createdAt)}</TableCell>
         </TableRow>
       )}
