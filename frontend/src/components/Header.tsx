@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 
-export default function Header() {
+function Header() {
   return ( 
     <AppBar
       position="static"
@@ -32,7 +32,7 @@ export default function Header() {
           <Link
             variant="button"
             color="text.primary"
-            href="#"
+            href="/post"
             sx={{ my: 1, mx: 1.5 }}
           >
             게시판
@@ -56,3 +56,5 @@ export default function Header() {
     </AppBar>
   );
 }
+
+export default Header;

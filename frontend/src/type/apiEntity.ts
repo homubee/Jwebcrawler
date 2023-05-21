@@ -1,5 +1,6 @@
 export interface Member {
   id?: number;
+  roleList: string[];
   email: string;
   nickname: string;
   gender: string;
@@ -46,4 +47,16 @@ export interface CrawlListRequestDTO extends CrawlBaseRequest {
   listClass?: string;
   listAttr?: string;
   targetTag?: string;
+}
+
+export interface PostRequestDTO {
+  memberId: number;
+  title: string;
+  content: string;
+}
+
+export interface CommentRequestDTO {
+  memberId: number;
+  postId: number;
+  content: string;
 }

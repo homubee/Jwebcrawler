@@ -21,7 +21,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
@@ -30,8 +29,11 @@ import AdminSignInForm from '../views/auth/AdminSignInForm';
 import WrongPage from '../views/WrongPage';
 import AdminMain from '../views/AdminMain';
 import MemberList from '../views/member/MemberList';
-import AdminPostList from '../views/post/AdminPostList';
+import PostList from '../views/post/PostList';
 import CrawlLogList from '../views/crawl/CrawlLogList';
+import CreatePostForm from '../views/post/CreatePostForm';
+import PostView from '../views/post/PostView';
+import UpdatePostForm from '../views/post/UpdatePostForm';
 
 const mainListItems = (
   <Fragment>
@@ -112,7 +114,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function AdminRoutes() {
+function AdminRoutes() {
   const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -195,7 +197,10 @@ export default function AdminRoutes() {
                 <Route path="/" element={<AdminMain/>} />
                 <Route path="/login" element={<AdminSignInForm/>} />
                 <Route path="/member" element={<MemberList/>} />
-                <Route path="/post" element={<AdminPostList/>} />
+                <Route path="/post" element={<PostList/>} />
+                <Route path="/post/:postId" element={<PostView/>} />
+                <Route path="/post/:postId/edit" element={<UpdatePostForm/>} />
+                <Route path="/post/new" element={<CreatePostForm />} />
                 <Route path="/crawl" element={<CrawlLogList/>} />
                 <Route path = "/*" element={<WrongPage/>} />
               </Routes>
@@ -210,3 +215,5 @@ export default function AdminRoutes() {
     </Box>
   );
 }
+
+export default AdminRoutes;
