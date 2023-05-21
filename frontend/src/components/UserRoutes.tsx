@@ -7,6 +7,7 @@ import WrongPage from '../views/WrongPage';
 import UserMain from '../views/UserMain';
 import CrawlForm from '../views/crawl/CrawlForm';
 import { Box } from '@mui/material';
+import CrawlResult from '../views/crawl/CrawlResult';
 
 const UserRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const UserRoutes = () => {
           <Route path="/login" element={<UserSignInForm/>} />
           <Route path="/register" element={<SignUp/>} />
           <Route path="/crawl" element={<CrawlForm/>} />
+          <Route path="/crawl/result" element={<CrawlResult/>} />
           <Route path = "/*" element={<WrongPage/>} />
         </Routes>
       </Box>
