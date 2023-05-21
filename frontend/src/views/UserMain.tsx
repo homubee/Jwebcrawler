@@ -25,7 +25,7 @@ const UserMain = () => {
         <Typography variant="body1">2. 크롤링 기능 사용 방법 (가이드 및 예시 제공)</Typography>
         <Typography variant="body1"><Link href="/help">도움말 페이지</Link>로 이동하여 관련 내용을 살펴보세요!</Typography>
       </Box>
-      <Typography variant="body1">(※ 본 웹사이트는 개인 프로젝트용으로 만들어진 것이며, 개인정보는 본 웹사이트 내에서만 이용됩니다. 개인정보 관련 문제 발생 시 책임소재는 회원 본인에게 있습니다.)</Typography>
+      <Typography variant="body1">※ 본 웹사이트는 개인 프로젝트용으로 만들어진 것이며, 개인정보는 본 웹사이트 내에서만 이용됩니다. 개인정보 관련 문제 또는 크롤링을 불법적으로 이용하는 문제 발생 시 책임소재는 회원 본인에게 있습니다.</Typography>
     </Box>
   )
 };

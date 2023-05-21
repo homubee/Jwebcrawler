@@ -40,7 +40,7 @@ function Header() {
           <Link
             variant="button"
             color="text.primary"
-            href="#"
+            href="/help"
             sx={{ my: 1, mx: 1.5 }}
           >
             도움말
