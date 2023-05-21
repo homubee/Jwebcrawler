@@ -1,5 +1,5 @@
-import { useState, Fragment } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { useState, useEffect, Fragment } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -10,13 +10,11 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -31,7 +29,13 @@ import CrawlLogList from '../views/crawl/CrawlLogList';
 import CreatePostForm from '../views/post/CreatePostForm';
 import PostView from '../views/post/PostView';
 import UpdatePostForm from '../views/post/UpdatePostForm';
-
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { apiInstance } from '../network/axiosInstance';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../store/authSlice';
+import { Button } from '@mui/material';
 
 const mainListItems = (
   <Fragment>
@@ -113,6 +117,26 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 function AdminRoutes() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const memberInfo = useSelector((state: RootState) => state.auth);
+
+  const [nickname, setNickname] = useState(memberInfo.nickname);
+  const [roleList, setRoleList] = useState(memberInfo.roleList);
+
+  useEffect(() => {
+    setNickname(memberInfo.nickname);
+    setRoleList(memberInfo.roleList);
+  }, [memberInfo]);
+
+  const onClickLogout = async () => {
+    await apiInstance.post("/auth/logout");
+    dispatch(logout());
+
+    navigate("login");
+  }
+
   const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -148,11 +172,16 @@ function AdminRoutes() {
           >
             JWebCrawler 관리자 시스템
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          {roleList.includes("ROLE_ADMIN") && 
+          <>
+          <Typography variant="h6" color="inherit" sx={{ my: 1, mx: 1.5 }}>
+            {nickname} 님
+          </Typography>
+          <Button variant="contained" color="error" onClick={onClickLogout} sx={{ my: 1, mx: 1.5 }}>
+            Logout
+          </Button>
+          </>
+          }
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -192,8 +221,10 @@ function AdminRoutes() {
             <Grid item xs={12}>
               <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
               <Routes>
-                <Route path="/" element={<AdminMain/>} />
                 <Route path="/login" element={<AdminSignInForm/>} />
+                {roleList.includes("ROLE_ADMIN") ? 
+                <>
+                <Route path="/" element={<AdminMain/>} />
                 <Route path="/member" element={<MemberList/>} />
                 <Route path="/post" element={<PostList/>} />
                 <Route path="/post/:postId" element={<PostView/>} />
@@ -201,6 +232,13 @@ function AdminRoutes() {
                 <Route path="/post/new" element={<CreatePostForm />} />
                 <Route path="/crawl" element={<CrawlLogList/>} />
                 <Route path = "/*" element={<WrongPage/>} />
+                </>
+                :
+                <Route
+                  path = "/*"
+                  element={<Navigate replace to="login"/>}
+                />
+                }
               </Routes>
               </Paper>
             </Grid>
