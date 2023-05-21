@@ -15,7 +15,7 @@ import UpdatePostForm from '../views/post/UpdatePostForm';
 
 const UserRoutes = () => {
   return (
-    <div>
+    <Box sx={{display:"flex", flexDirection:"column", maxWidth:1200, m:"auto"}}>
       <Header />
       <Box sx={{m:3}}>
         <Routes>
@@ -32,7 +32,7 @@ const UserRoutes = () => {
         </Routes>
       </Box>
       <Footer />
-    </div>
+    </Box>
   )
 };
 

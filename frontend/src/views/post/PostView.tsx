@@ -5,6 +5,8 @@ import { apiInstance } from '../../network/axiosInstance';
 import { Post } from '../../type/apiEntity';
 import { useNavigate, useParams } from 'react-router-dom';
 import WrongPage from '../WrongPage';
+import CommentInputBox from '../../components/CommentInputBox';
+import CommentBox from '../../components/CommentBox';
 
 function PostView() {
   const navigate = useNavigate();
@@ -60,6 +62,19 @@ function PostView() {
           수정하기
         </Button>
       </Box>
+      <Box sx={{mb: 2}}>
+        <Typography variant="subtitle1">
+          댓글 목록 ({post?.commentList.length})
+        </Typography>
+        {post?.commentList.length !== 0 ? post?.commentList.map((comment) => 
+          <CommentBox key={comment.id} comment={comment} />
+        ) :
+        <Typography variant="subtitle2">
+          아직 댓글이 없습니다.
+        </Typography>
+        }
+      </Box>
+      <CommentInputBox postId={post?.id!}/>
     </Box>
     : <WrongPage />
   );

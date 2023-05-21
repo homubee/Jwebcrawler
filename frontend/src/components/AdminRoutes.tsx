@@ -114,7 +114,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function AdminRoutes() {
+function AdminRoutes() {
   const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -215,3 +215,5 @@ export default function AdminRoutes() {
     </Box>
   );
 }
+
+export default AdminRoutes;

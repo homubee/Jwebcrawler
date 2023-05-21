@@ -54,3 +54,9 @@ export interface PostRequestDTO {
   title: string;
   content: string;
 }
+
+export interface CommentRequestDTO {
+  memberId: number;
+  postId: number;
+  content: string;
+}

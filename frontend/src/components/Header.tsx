@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 
-export default function Header() {
+function Header() {
   return ( 
     <AppBar
       position="static"
@@ -56,3 +56,5 @@ export default function Header() {
     </AppBar>
   );
 }
+
+export default Header;
