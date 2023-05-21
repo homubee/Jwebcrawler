@@ -10,6 +10,8 @@ import { Box } from '@mui/material';
 import CrawlResult from '../views/crawl/CrawlResult';
 import PostList from '../views/post/PostList';
 import CreatePostForm from '../views/post/CreatePostForm';
+import PostView from '../views/post/PostView';
+import UpdatePostForm from '../views/post/UpdatePostForm';
 
 const UserRoutes = () => {
   return (
@@ -23,6 +25,8 @@ const UserRoutes = () => {
           <Route path="/crawl" element={<CrawlForm/>} />
           <Route path="/crawl/result" element={<CrawlResult/>} />
           <Route path="/post" element={<PostList/>} />
+          <Route path="/post/:postId" element={<PostView/>} />
+          <Route path="/post/:postId/edit" element={<UpdatePostForm/>} />
           <Route path="/post/new" element={<CreatePostForm/>} />
           <Route path = "/*" element={<WrongPage/>} />
         </Routes>

@@ -7,7 +7,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import { Grid, TextField } from '@mui/material';
 import { EntitySearch } from '../type/common';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface memberSearchProps {
   setSearch: React.Dispatch<React.SetStateAction<EntitySearch>>
@@ -73,7 +73,6 @@ interface postSearchProps {
 }
 
 export function PostSearchForm(props: postSearchProps) {
-  const location = useLocation();
   const navigate = useNavigate();
   const [selectType, setSelectType] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -93,7 +92,7 @@ export function PostSearchForm(props: postSearchProps) {
   }
 
   const onClickWrite = () => {
-    navigate(location.pathname + "/new");
+    navigate("new");
   }
 
   return (

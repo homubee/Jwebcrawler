@@ -21,7 +21,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
@@ -33,6 +32,8 @@ import MemberList from '../views/member/MemberList';
 import PostList from '../views/post/PostList';
 import CrawlLogList from '../views/crawl/CrawlLogList';
 import CreatePostForm from '../views/post/CreatePostForm';
+import PostView from '../views/post/PostView';
+import UpdatePostForm from '../views/post/UpdatePostForm';
 
 const mainListItems = (
   <Fragment>
@@ -197,6 +198,8 @@ export default function AdminRoutes() {
                 <Route path="/login" element={<AdminSignInForm/>} />
                 <Route path="/member" element={<MemberList/>} />
                 <Route path="/post" element={<PostList/>} />
+                <Route path="/post/:postId" element={<PostView/>} />
+                <Route path="/post/:postId/edit" element={<UpdatePostForm/>} />
                 <Route path="/post/new" element={<CreatePostForm />} />
                 <Route path="/crawl" element={<CrawlLogList/>} />
                 <Route path = "/*" element={<WrongPage/>} />

@@ -1,6 +1,7 @@
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
+import { Link } from 'react-router-dom';
 import { Member, Post, CrawlLog } from '../../type/apiEntity';
 import { ISOtoKST } from '../../utils/convertUtils';
 
@@ -34,7 +35,7 @@ export function PostTableBody(props: postTableProps) {
       {props.posts.map((post) => 
         <TableRow key={post.id}>
           <TableCell>{post.id}</TableCell>
-          <TableCell sx={{wordBreak:"break-all"}}>{post.title}</TableCell>
+          <TableCell sx={{wordBreak:"break-all"}}><Link to={`${post.id}`}>{post.title}</Link></TableCell>
           <TableCell>{post.member.nickname}</TableCell>
           <TableCell>{post.commentList.length}</TableCell>
           <TableCell>{post.viewCnt}</TableCell>

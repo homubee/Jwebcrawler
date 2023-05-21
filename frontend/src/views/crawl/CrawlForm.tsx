@@ -9,10 +9,9 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useState } from 'react';
 import { apiInstance } from '../../network/axiosInstance';
 import { CrawlBodyRequestDTO, CrawlListRequestDTO } from '../../type/apiEntity';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function CrawlForm() {
-  const location = useLocation();
   const navigate = useNavigate();
 
   const [crawlType, setCrawlType] = useState("body");
@@ -103,7 +102,7 @@ function CrawlForm() {
     if (crawlType === "body") {
       await apiInstance.post("/crawl/body", bodyRequest)
       .then((res) => {
-        navigate(location.pathname + "/result", { state: {
+        navigate("result", { state: {
           url: res.data.url,
           result: res.data.result
         }});
@@ -111,7 +110,7 @@ function CrawlForm() {
     } else if (crawlType === "list") {
       await apiInstance.post("/crawl/list", listRequest)
       .then((res) => {
-        navigate(location.pathname + "/result", { state: {
+        navigate("result", { state: {
           url: res.data.url,
           result: res.data.result
         }});
