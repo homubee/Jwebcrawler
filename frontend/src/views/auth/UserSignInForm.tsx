@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,15 +9,33 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { MemberLoginRequestDTO } from '../../type/apiEntity';
+import { apiInstance } from '../../network/axiosInstance';
+import { useNavigate } from 'react-router-dom';
 
-export default function UserSignInForm() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+function UserSignInForm() {
+  const navigate = useNavigate();
+
+  const [memberRequest, SetMemberRequest] = useState<MemberLoginRequestDTO>({
+    email: "",
+    password: "",
+  })
+
+  const onChangeMemberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    SetMemberRequest({
+      ...memberRequest,
+      [name]: value
     });
+  }
+
+  const onClickSubmitSignIn = async () => {
+    await apiInstance.post("/auth/login", memberRequest)
+    .then((res) => {
+      ;
+    });
+
+    navigate("/");
   };
 
   return (
@@ -38,7 +56,7 @@ export default function UserSignInForm() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
@@ -46,8 +64,8 @@ export default function UserSignInForm() {
             id="email"
             label="Email Address"
             name="email"
-            autoComplete="email"
             autoFocus
+            onChange={onChangeMemberInput}
           />
           <TextField
             margin="normal"
@@ -57,13 +75,14 @@ export default function UserSignInForm() {
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
+            onChange={onChangeMemberInput}
           />
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={onClickSubmitSignIn}
           >
             Sign In
           </Button>
@@ -79,3 +98,5 @@ export default function UserSignInForm() {
     </Container>
   );
 }
+
+export default UserSignInForm;

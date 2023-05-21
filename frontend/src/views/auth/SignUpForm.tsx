@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,15 +14,32 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { MemberRegisterRequestDTO } from '../../type/apiEntity';
+import { apiInstance } from '../../network/axiosInstance';
+import { useNavigate } from 'react-router-dom';
 
-export default function SignUp() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+function SignUp() {
+  const navigate = useNavigate();
+  const [memberRequest, SetMemberRequest] = useState<MemberRegisterRequestDTO>({
+    email: "",
+    password: "",
+    nickname: "",
+    gender: "",
+    purpose: "",
+  })
+
+  const onChangeMemberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    SetMemberRequest({
+      ...memberRequest,
+      [name]: value
     });
+  }
+
+  const onClickSubmitSignUp = async () => {
+    await apiInstance.post("/members", memberRequest);
+
+    navigate("/");
   };
 
   return (
@@ -43,7 +60,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -52,7 +69,7 @@ export default function SignUp() {
                 id="email"
                 label="Email Address"
                 name="email"
-                autoComplete="email"
+                onChange={onChangeMemberInput}
               />
             </Grid>
             <Grid item xs={12}>
@@ -63,7 +80,7 @@ export default function SignUp() {
                 label="Password"
                 type="password"
                 id="password"
-                autoComplete="new-password"
+                onChange={onChangeMemberInput}
               />
             </Grid>
             <Grid item xs={12}>
@@ -72,19 +89,19 @@ export default function SignUp() {
                 fullWidth
                 name="nickname"
                 label="Nickname"
-                type="nickname"
                 id="nickname"
-                autoComplete="nickname"
+                onChange={onChangeMemberInput}
               />
             </Grid>
             <Grid item xs={12}>
               <FormControl>
-                <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel>
+                <FormLabel id="gender">Gender</FormLabel>
                 <RadioGroup
                     row
-                    aria-labelledby="demo-radio-buttons-group-label"
+                    aria-labelledby="gender"
                     defaultValue="MALE"
-                    name="radio-buttons-group"
+                    name="gender"
+                    onChange={onChangeMemberInput}
                 >
                   <FormControlLabel value="MALE" control={<Radio />} label="Male" />
                   <FormControlLabel value="FEMALE" control={<Radio />} label="Female" />
@@ -96,9 +113,8 @@ export default function SignUp() {
                 fullWidth
                 name="purpose"
                 label="Purpose"
-                type="purpose"
                 id="purpose"
-                autoComplete="purpose"
+                onChange={onChangeMemberInput}
               />
             </Grid>
           </Grid>
@@ -107,6 +123,7 @@ export default function SignUp() {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={onClickSubmitSignUp}
           >
             Sign Up
           </Button>
@@ -122,3 +139,5 @@ export default function SignUp() {
     </Container>
   );
 }
+
+export default SignUp;
