@@ -20,10 +20,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
+import { EditNote, History, InfoOutlined, People } from '@mui/icons-material';
 import Footer from './Footer';
 import AdminSignInForm from '../views/auth/AdminSignInForm';
 import WrongPage from '../views/WrongPage';
@@ -35,29 +32,30 @@ import CreatePostForm from '../views/post/CreatePostForm';
 import PostView from '../views/post/PostView';
 import UpdatePostForm from '../views/post/UpdatePostForm';
 
+
 const mainListItems = (
   <Fragment>
-    <ListItemButton>
+    <ListItemButton href="/admin">
       <ListItemIcon>
-        <DashboardIcon />
+        <InfoOutlined />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="메인 페이지" />
     </ListItemButton>
     <ListItemButton href="/admin/member">
       <ListItemIcon>
-        <PeopleIcon />
+        <People />
       </ListItemIcon>
       <ListItemText primary="회원 목록" />
     </ListItemButton>
     <ListItemButton href="/admin/post">
       <ListItemIcon>
-        <LayersIcon />
+        <EditNote />
       </ListItemIcon>
       <ListItemText primary="게시글 목록" />
     </ListItemButton>
     <ListItemButton href="/admin/crawl">
       <ListItemIcon>
-        <BarChartIcon />
+        <History />
       </ListItemIcon>
       <ListItemText primary="크롤링 이력" />
     </ListItemButton>
