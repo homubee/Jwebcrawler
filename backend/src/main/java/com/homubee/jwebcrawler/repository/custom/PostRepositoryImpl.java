@@ -43,7 +43,9 @@ public class PostRepositoryImpl extends QuerydslRepositorySupport implements Cus
         // set page option
         query.offset(pageable.getOffset());
         query.limit(pageable.getPageSize());
+
         // set orderBy statement
+        query.orderBy(new OrderSpecifier<>(Order.DESC, post.createdAt));
         for (Sort.Order order : pageable.getSort()) {
             PathBuilder pathBuilder;
             // get different PathBuilder by property
