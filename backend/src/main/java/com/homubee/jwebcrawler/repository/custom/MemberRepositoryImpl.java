@@ -56,7 +56,7 @@ public class MemberRepositoryImpl extends QuerydslRepositorySupport implements C
         }
 
         List<Member> result = query.fetch();
-        int count = result.size();
+        Long count = query.fetchCount();
 
         return new PageImpl<>(result, pageable, count);
     }

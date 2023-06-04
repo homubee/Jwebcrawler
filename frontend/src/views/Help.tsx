@@ -103,8 +103,8 @@ const Help = () => {
           />
         </Box>
         <Box sx={{mb: 1}}>
-          <Typography variant="subtitle1">5. 크롤링 예시 (네이버 블로그 게시글 본문)</Typography>
-          <Typography variant="subtitle2">① 본문 크롤링</Typography>
+          <Typography variant="subtitle1">5. 크롤링 예시</Typography>
+          <Typography variant="subtitle2">① 본문 크롤링 (네이버 블로그 게시글 본문)</Typography>
           <Box sx={{mb: 1, border: "1px dotted", maxWidth: 1000}}>
             <Typography variant="body2" sx={{wordBreak:"break-all"}}>URL : https://blog.naver.com/PostView.naver?blogId=blogpeople&logNo=150083247322&redirect=Dlog&widgetTypeCall=true&from=section&topReferer=https%3A%2F%2Fsection.blog.naver.com%2FBlogHome.naver%3FdirectoryNo%3D0%26currentPage%3D1%26groupId%3D0&directAccess=false</Typography>
             <Typography variant="body2">rootTag : div</Typography>

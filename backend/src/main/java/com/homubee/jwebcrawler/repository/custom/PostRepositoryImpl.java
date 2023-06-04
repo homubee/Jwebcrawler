@@ -60,7 +60,7 @@ public class PostRepositoryImpl extends QuerydslRepositorySupport implements Cus
         }
 
         List<Post> result = query.fetch();
-        int count = result.size();
+        Long count = query.fetchCount();
 
         return new PageImpl<>(result, pageable, count);
     }
