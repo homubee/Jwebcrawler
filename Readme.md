@@ -81,3 +81,22 @@
 - Jsoup 기반 웹크롤링 API 제공
   - 본문 내용 크롤링: p 태그, br 태그 등 줄바꿈 유형에 따른 크롤링 가능
   - 목록 항목 크롤링: li 태그, tr 태그 등 목록 항목에 관한 내용 크롤링 가능
+
+
+## Screenshots
+
+### 사용자 시스템
+<img src="https://github.com/homubee/Jwebcrawler/assets/83688807/841402d6-4bee-488b-8c5b-dd5103c1acf7" width="373" height="411"/>
+<img src="https://github.com/homubee/Jwebcrawler/assets/83688807/e17b272b-ccd2-4964-98f8-0c79c5a76a8b" width="373" height="411"/>
+<img src="https://github.com/homubee/Jwebcrawler/assets/83688807/efb686c2-16ed-4279-9b83-8b4ceaf7e566" width="373" height="411"/>
+<img src="https://github.com/homubee/Jwebcrawler/assets/83688807/31b265f4-c99c-4ecf-8b70-5a7e39c1d0ed" width="373" height="411"/>
+<img src="https://github.com/homubee/Jwebcrawler/assets/83688807/47131848-6ad2-473a-bec3-b490e9d1dab1" width="373" height="411"/>
+<img src="https://github.com/homubee/Jwebcrawler/assets/83688807/ee6319f1-1b7a-40f3-b9d4-05269baa2a01" width="373" height="411"/>
+<img src="https://github.com/homubee/Jwebcrawler/assets/83688807/ae41d12e-3b00-4e7e-87f0-8c27aaed93a0" width="373" height="411"/>
+<img src="https://github.com/homubee/Jwebcrawler/assets/83688807/c2cceb0d-a74d-4953-9d36-555bd2ba5d3e" width="373" height="411"/>
+
+### 관리자 시스템
+<img src="https://github.com/homubee/Jwebcrawler/assets/83688807/517fb7e1-c21d-4d0e-b95d-f9dc34931fe3" width="373" height="411"/>
+<img src="https://github.com/homubee/Jwebcrawler/assets/83688807/34018347-d242-4593-a05d-320e79665985" width="373" height="411"/>
+<img src="https://github.com/homubee/Jwebcrawler/assets/83688807/ed5c59d8-8cb7-4e60-96aa-8279dd7ed604" width="373" height="411"/>
+<img src="https://github.com/homubee/Jwebcrawler/assets/83688807/a1a381b2-bef0-42aa-8bfc-4835751ab424" width="373" height="411"/>
