@@ -41,7 +41,9 @@ public class MemberRepositoryImpl extends QuerydslRepositorySupport implements C
         // set page option
         query.offset(pageable.getOffset());
         query.limit(pageable.getPageSize());
+
         // set orderBy statement
+        query.orderBy(new OrderSpecifier<>(Order.DESC, member.createdAt));
         for (Sort.Order order : pageable.getSort()) {
             PathBuilder pathBuilder;
             // invalid property wouldn't include to query
@@ -56,7 +58,7 @@ public class MemberRepositoryImpl extends QuerydslRepositorySupport implements C
         }
 
         List<Member> result = query.fetch();
-        int count = result.size();
+        Long count = query.fetchCount();
 
         return new PageImpl<>(result, pageable, count);
     }

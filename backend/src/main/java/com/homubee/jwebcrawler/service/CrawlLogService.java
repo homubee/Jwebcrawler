@@ -82,7 +82,7 @@ public class CrawlLogService {
     }
 
     public List<CrawlLogResponseDTO> findCrawlLogs() {
-        List<CrawlLog> crawlLogs = crawlLogRepository.findAll();
+        List<CrawlLog> crawlLogs = crawlLogRepository.findAllByOrderByCreatedAtDesc();
         return modelMapper.map(crawlLogs, new TypeToken<List<CrawlLogResponseDTO>>(){}.getType());
     }
 }
